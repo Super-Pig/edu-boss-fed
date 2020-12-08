@@ -1,9 +1,15 @@
 <template>
   <div id="app">
-    <h1>garry</h1>
-    <router-view/>
+    <router-view />
   </div>
 </template>
+
+<script type="ts">
+// import Vue from "vue";
+// import request from "@/utils/request";
+
+export default {}
+</script>
 
 <style lang="scss" scoped>
 </style>
