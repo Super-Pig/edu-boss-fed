@@ -13,7 +13,13 @@ export const login = (data: User) => {
   return request({
     method: 'POST',
     url: '/front/user/login',
-    headers: { 'content-type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(data)
+  })
+}
+
+export const getUserInfo = () => {
+  return request({
+    method: 'GET',
+    url: '/front/user/getInfo'
   })
 }

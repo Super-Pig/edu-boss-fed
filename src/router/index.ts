@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Layout from '@/layout/index.vue'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -11,6 +12,9 @@ const routes: Array<RouteConfig> = [{
 }, {
   path: '/',
   component: Layout,
+  meta: {
+    requiresAuth: true
+  },
   children: [{
     path: '/',
     name: 'home',
@@ -24,13 +28,13 @@ const routes: Array<RouteConfig> = [{
     name: 'menu',
     component: () => import(/* webpackchunkName: 'menu' */ '@/views/menu/index.vue')
   }, {
+    path: '/menu/create',
+    name: 'menu-create',
+    component: () => import(/* webpackchunkName: 'menu-create' */ '@/views/menu/create.vue')
+  }, {
     path: '/resource',
     name: 'resource',
     component: () => import(/* webpackchunkName: 'resource' */ '@/views/resource/index.vue')
-  }, {
-    path: '/login',
-    name: 'login',
-    component: () => import(/* webpackchunkName: 'login' */ '@/views/login/index.vue')
   }, {
     path: '/course',
     name: 'course',
@@ -56,6 +60,23 @@ const routes: Array<RouteConfig> = [{
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.state.user) {
+      next({
+        name: 'login',
+        query: {
+          redirect: to.fullPath
+        }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
