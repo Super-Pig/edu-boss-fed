@@ -28,7 +28,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { getUserInfo } from '@/services/user'
-import { Message } from 'element-ui'
 
 export default Vue.extend({
   name: 'AppHeader',
