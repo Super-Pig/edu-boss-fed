@@ -28,7 +28,14 @@
         <el-table-column label="操作" align="center" width="150px">
           <template slot-scope="scope">
             <div>
-              <el-button type="text">分配菜单</el-button>
+              <el-button type="text"
+              @click="$router.push({
+                name: 'alloc-menu',
+                params: {
+                  roleId: scope.row.id
+                }
+              })"
+              >分配菜单</el-button>
               <el-button type="text">分配资源</el-button>
             </div>
             <div>
