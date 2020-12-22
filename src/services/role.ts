@@ -26,9 +26,24 @@ export const createOrUpdate = (data: any) => {
   })
 }
 
-export const getRoleById = (id: string|number) => {
+export const getRoleById = (id: string | number) => {
   return request({
     method: 'GET',
     url: `/boss/role/${id}`
+  })
+}
+
+export const getAllRoles = () => {
+  return request({
+    method: 'GET',
+    url: '/boss/role/all'
+  })
+}
+
+export const allocateUserRoles = (data: any) => {
+  return request({
+    method: 'POST',
+    url: '/boss/role/allocateUserRoles',
+    data
   })
 }
