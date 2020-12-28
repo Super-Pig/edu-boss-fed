@@ -81,7 +81,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { getUserPages, forbidUser } from '@/services/user'
-import { getAllRoles, allocateUserRoles } from '@/services/role'
+import { getAllRoles, allocateUserRoles, getUserRoles } from '@/services/role'
 import { Form } from 'element-ui'
 
 export default Vue.extend({
@@ -140,8 +140,11 @@ export default Vue.extend({
       this.currentUser = user
 
       const { data } = await getAllRoles()
-
       this.roles = data.data
+
+      const { data: { data: userRoles } } = await getUserRoles((this.currentUser as any).id)
+      this.roleIdList = userRoles.map((item: any) => item.id)
+
       this.dialogVisible = true
     },
 
