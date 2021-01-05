@@ -33,41 +33,45 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>查询结果</span>
-        <el-button style="float: right; padding: 3px 0" type="primary"
-        @click="$router.push({
-          name: 'course-create'
-        })"
-          >添加课程</el-button
+        <el-button
+          style="float: right; padding: 3px 0"
+          type="primary"
+          @click="$router.push({
+              name: 'course-create',
+            })">添加课程</el-button
         >
       </div>
       <el-table
         v-loading="loading"
         :data="courses"
         style="width: 100%; margin-bottom: 20px"
-      ></el-table>
-      <el-table-column prop="id" label="ID"></el-table-column>
-      <el-table-column prop="courseName" label="课程名称"></el-table-column>
-      <el-table-column prop="price" label="价格"></el-table-column>
-      <el-table-column prop="sortNum" label="排序"></el-table-column>
-      <el-table-column prop="status" label="上架状态">
-        <template slot-scope="scope">
-          <el-switch
-            v-model="scope.row.status"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-            :active-value="1"
-            :inactive-value="0"
-            @change="onStateChange(scope.row)"
-            :disabled="scope.row.isStatusLoading"
-          ></el-switch>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
-          <el-button size="mini">内容管理</el-button>
-        </template>
-      </el-table-column>
+      >
+        <el-table-column prop="id" label="ID"></el-table-column>
+        <el-table-column prop="courseName" label="课程名称"></el-table-column>
+        <el-table-column prop="price" label="价格"></el-table-column>
+        <el-table-column prop="sortNum" label="排序"></el-table-column>
+        <el-table-column prop="status" label="上架状态">
+          <template slot-scope="scope">
+            <el-switch
+              v-model="scope.row.status"
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              :active-value="1"
+              :inactive-value="0"
+              @change="onStateChange(scope.row)"
+              :disabled="scope.row.isStatusLoading"
+            ></el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button size="mini" @click="handleEdit(scope.row)"
+              >编辑</el-button
+            >
+            <el-button size="mini">内容管理</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-card>
   </div>
 </template>
@@ -92,6 +96,9 @@ export default Vue.extend({
       }
     }
   },
+  created () {
+    this.loadCourses()
+  },
   methods: {
     handleFilter () {
       this.filterParams.currentPage = 1
@@ -111,10 +118,9 @@ export default Vue.extend({
         item.isStatusLoading = false
       })
 
-      if (data.code === '000000') {
-        this.courses = data.data.records
-        this.totalCount = data.data.total
-      }
+      this.courses = data.data.records
+      this.totalCount = data.data.total
+      this.loading = false
     },
 
     handleEdit (item: any) {

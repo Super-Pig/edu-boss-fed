@@ -2,7 +2,7 @@
   <div class="role-list">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <el-from ref="form" :model="form">
+        <el-form ref="form" :model="form">
           <el-form-item label="角色名称" prop="name">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
@@ -11,7 +11,7 @@
               >查询搜索</el-button>
             <el-button :disabled="loading" @click="onReset">重置</el-button>
           </el-form-item>
-        </el-from>
+        </el-form>
       </div>
 
       <el-button @click="handleAdd">添加角色</el-button>
@@ -96,6 +96,7 @@ export default Vue.extend({
       const { data } = await getRoles(this.form)
       this.$message.success('操作成功')
       this.roles = data.data.records
+      this.loading = false
     },
 
     onSubmit () {

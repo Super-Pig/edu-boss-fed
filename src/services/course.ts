@@ -6,7 +6,7 @@ import request from '@/utils/request'
 export const getQueryCourse = (data: any) => {
   return request({
     method: 'POST',
-    url: '/boss/course/getQueryCourse',
+    url: '/boss/course/getQueryCourses',
     data
   })
 }
@@ -27,10 +27,11 @@ export const saveOrUpdateCourse = (data: any) => {
   })
 }
 
-export const uploadCourseImage = (data: any) => {
+export const uploadCourseImage = (data: any, onUploadProgress: (progressEvent: ProgressEventInit) => void) => {
   return request({
     method: 'POST',
     url: '/boss/course/upload',
-    data
+    data,
+    onUploadProgress
   })
 }
