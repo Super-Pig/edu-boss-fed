@@ -109,7 +109,7 @@
         </div>
         <div v-show="activeStep === 4">
           <el-form-item label="课程详情">
-            <el-input type="textarea" v-model="course.courseDescriptionMarkDown"></el-input>
+            <text-editor v-model="course.courseDescriptionMarkDown"></text-editor>
           </el-form-item>
 
           <el-form-item label="是否发布">
@@ -132,8 +132,7 @@
           <el-button
             v-if="activeStep >= 0 && activeStep < 4"
             @click="activeStep++"
-            >下一步</el-button
-          >
+            >下一步</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -144,11 +143,13 @@
 import Vue from 'vue'
 import { saveOrUpdateCourse } from '@/services/course'
 import CourseImage from './components/CourseImage.vue'
+import TextEditor from '@/components/TextEditor/index.vue'
 
 export default Vue.extend({
   name: 'CourseCreate',
   components: {
-    CourseImage
+    CourseImage,
+    TextEditor
   },
   data () {
     return {
