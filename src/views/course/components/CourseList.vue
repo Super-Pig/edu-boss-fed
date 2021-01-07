@@ -65,10 +65,22 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.row)"
+            <el-button size="mini" @click="$router.push({
+              name: 'course-edit',
+              params: {
+                courseId: scope.row.id
+              }
+            })"
               >编辑</el-button
             >
-            <el-button size="mini">内容管理</el-button>
+            <el-button size="mini"
+            @click="$router.push({
+              name: 'course-section',
+              params: {
+                courseId: scope.row.id
+              }
+            })"
+            >内容管理</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -121,10 +133,6 @@ export default Vue.extend({
       this.courses = data.data.records
       this.totalCount = data.data.total
       this.loading = false
-    },
-
-    handleEdit (item: any) {
-      console.log('handleEdit')
     },
 
     async onStateChange (course: any) {
